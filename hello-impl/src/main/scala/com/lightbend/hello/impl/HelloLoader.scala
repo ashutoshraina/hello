@@ -7,6 +7,7 @@ import com.lightbend.lagom.scaladsl.server._
 import com.lightbend.lagom.scaladsl.devmode.LagomDevModeComponents
 import play.api.libs.ws.ahc.AhcWSComponents
 import com.lightbend.hello.api.HelloService
+import com.lightbend.hello.random.api.RandomService
 import com.lightbend.lagom.scaladsl.broker.kafka.LagomKafkaComponents
 import com.softwaremill.macwire._
 
@@ -34,6 +35,9 @@ abstract class HelloApplication(context: LagomApplicationContext)
 
   // Register the JSON serializer registry
   override lazy val jsonSerializerRegistry = HelloSerializerRegistry
+
+  lazy val randomService = serviceClient.implement[RandomService]
+
 
   // Register the Hello persistent entity
   persistentEntityRegistry.register(wire[HelloEntity])
