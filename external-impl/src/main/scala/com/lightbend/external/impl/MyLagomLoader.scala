@@ -26,4 +26,6 @@ abstract class MyLagomApplication(context: LagomApplicationContext) extends Lago
 
   // Bind the service that this server provides
   override lazy val lagomServer: LagomServer = serverFor[LagomService](wire[LagomServiceImpl])
+  lazy val externalService = serviceClient.implement[ExternalService]
+
 }
