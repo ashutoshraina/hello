@@ -71,4 +71,4 @@ lazy val `hello-stream-impl` = (project in file("hello-stream-impl"))
   )
   .dependsOn(`hello-stream-api`, `hello-api`)
 
-lagomUnmanagedServices in ThisBuild := Map("spring" -> "http://localhost:8080")
+lagomUnmanagedServices in ThisBuild := Map("external" -> "http://localhost:8080")
