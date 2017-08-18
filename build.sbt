@@ -1,3 +1,5 @@
+import com.typesafe.sbt.packager.docker.{Cmd, ExecCmd}
+
 organization in ThisBuild := "com.lightbend"
 version in ThisBuild := "0.1"
 
@@ -8,48 +10,28 @@ val macwire = "com.softwaremill.macwire" %% "macros" % "2.2.5" % "provided"
 val scalaTest = "org.scalatest" %% "scalatest" % "3.0.1" % Test
 
 lazy val `hello` = (project in file("."))
-  .aggregate(`hello-api`, `hello-impl`, `external-api`, `external-impl`)
+  .aggregate(`lagom-api`, `lagom-impl`)
 
-lazy val `hello-api` = (project in file("hello-api"))
+lazy val `lagom-api` = (project in file("lagom-api"))
   .settings(
-    libraryDependencies ++= Seq(
-      lagomScaladslApi,
-      lagomScaladslClient
-    )
+    libraryDependencies ++= Seq(lagomScaladslApi)
   )
 
-
-lazy val `hello-impl` = (project in file("hello-impl"))
-  .enablePlugins(LagomScala)
+lazy val `lagom-impl` = (project in file("lagom-impl"))
+  .enablePlugins(LagomScala, JavaAppPackaging)
   .settings(
-    libraryDependencies ++= Seq(
-      lagomScaladslPersistenceCassandra,
-      lagomScaladslKafkaBroker,
-      lagomScaladslTestKit,
-      lagomScaladslClient,
-      macwire,
-      scalaTest
-    )
+    libraryDependencies ++= Seq(lagomScaladslClient, macwire)++ BuildTarget.additionalLibraryDependencies,
+    dockerRepository := Some("lagom"),
+    dockerUpdateLatest := true,
+    dockerEntrypoint ++= """-Dplay.crypto.secret="${APPLICATION_SECRET:-none}" -Dplay.akka.actor-system="${AKKA_ACTOR_SYSTEM_NAME:-lagomservice-v1}" -Dhttp.address="$LAGOMSERVICE_BIND_IP" -Dhttp.port="$LAGOMSERVICE_BIND_PORT" -Dakka.io.dns.resolver=async-dns -Dakka.io.dns.async-dns.resolve-srv=true -Dakka.io.dns.async-dns.resolv-conf=on""".split(" ").toSeq,
+    dockerCommands :=
+      dockerCommands.value.flatMap {
+        case ExecCmd("ENTRYPOINT", args@_*) => Seq(Cmd("ENTRYPOINT", args.mkString(" ")))
+        case v => Seq(v)
+      },
+    version := "1.0-SNAPSHOT"
   )
   .settings(lagomForkedTestSettings: _*)
-  .dependsOn(`hello-api`)
+  .dependsOn(`lagom-api`)
 
-lazy val `external-api` = (project in file("external-api"))
-  .settings(
-    libraryDependencies ++= Seq(
-      lagomScaladslApi
-    )
-  )
-
-lazy val `external-impl` = (project in file("external-impl"))
-  .enablePlugins(LagomScala)
-  .settings(
-    libraryDependencies ++= Seq(
-      lagomScaladslClient,
-      macwire
-    )
-  )
-  .settings(lagomForkedTestSettings: _*)
-  .dependsOn(`external-api`)
-
-lagomUnmanagedServices in ThisBuild := Map("external" -> "http://localhost:8080")
+lagomUnmanagedServices in ThisBuild := Map("liberty" -> "http://localhost:8080")
