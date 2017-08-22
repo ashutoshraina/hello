@@ -12,13 +12,5 @@ libraryDependencies ++= {
       sbtPluginExtra("com.typesafe.sbt" % "sbt-native-packager" % "1.2.0", sbtV, scalaV)
     )
 
-  val sbtConductRPlugin = sbtPluginExtra("com.lightbend.conductr" % "sbt-conductr" % "2.3.0", sbtV, scalaV)
-  val additionalPlugins: Seq[ModuleID] =
-    sys.props.get("buildTarget") match {
-      case Some(v) if v.toLowerCase == "conductr" => Seq(sbtConductRPlugin)
-      case None => Seq(sbtConductRPlugin)
-      case _ => Seq.empty
-    }
-
-  defaultPlugins ++ additionalPlugins
+  defaultPlugins
 }
