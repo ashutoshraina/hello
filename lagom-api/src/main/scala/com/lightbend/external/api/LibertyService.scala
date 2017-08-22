@@ -10,7 +10,7 @@ trait LibertyService extends Service {
 
   override final def descriptor = {
     import Service._
-    named("liberty")
+    named("libertyservice")
       .withCalls(
         restCall(Method.GET, "/sample.servlet/servlet", echo)
       ).withAutoAcl(true)

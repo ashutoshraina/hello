@@ -3,6 +3,7 @@ package com.lightbend.lagom.impl
 import com.lightbend.external.api.{LibertyService, LagomService}
 import com.lightbend.lagom.scaladsl.api.ServiceLocator
 import com.lightbend.lagom.scaladsl.api.ServiceLocator.NoServiceLocator
+import com.lightbend.lagom.dns
 import com.lightbend.lagom.scaladsl.devmode.LagomDevModeComponents
 import com.lightbend.lagom.scaladsl.server.{LagomApplication, LagomApplicationContext, LagomApplicationLoader, LagomServer}
 import com.softwaremill.macwire.wire
@@ -12,7 +13,7 @@ class LagomLoader extends LagomApplicationLoader{
 
   override def load(context: LagomApplicationContext): LagomApplication =
     new MyLagomApplication(context) {
-      override def serviceLocator: ServiceLocator = NoServiceLocator
+      override def serviceLocator: ServiceLocator = DnsServiceLocator
     }
 
   override def loadDevMode(context: LagomApplicationContext): LagomApplication =

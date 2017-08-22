@@ -1,13 +1,13 @@
 package com.lightbend.lagom.impl
 
 import akka.NotUsed
-import com.lightbend.external.api.{LibertyService, LagomService}
-import com.lightbend.lagom.scaladsl.api.ServiceCall
+import com.lightbend.external.api.{LagomService, LibertyService}
+import com.lightbend.lagom.scaladsl.api.{ServiceCall, ServiceLocator}
 
 import scala.concurrent.ExecutionContext
 
 
-class LagomServiceImpl(externalService: LibertyService)(implicit ec: ExecutionContext) extends LagomService {
+class LagomServiceImpl(externalService: LibertyService, serviceLocator: ServiceLocator)(implicit ec: ExecutionContext) extends LagomService {
 
   override def speak(): ServiceCall[NotUsed, String] = ServiceCall { _ =>
     externalService.echo().invoke().map(result => s"External Service Replied with --- \n$result")
