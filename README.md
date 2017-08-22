@@ -12,7 +12,7 @@ eval $(minikube docker-env)
 Building Docker images 
 
 ```
- sbt clean docker:publishLocal && docker build -t liberty-app liberty
+ sbt clean docker:publishLocal && mvn -f liberty/pom.xml clean package install && docker build -t liberty-app liberty
 ```
 
 Creating Pods
