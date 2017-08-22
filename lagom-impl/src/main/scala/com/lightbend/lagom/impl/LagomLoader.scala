@@ -3,7 +3,7 @@ package com.lightbend.lagom.impl
 import com.lightbend.external.api.{LibertyService, LagomService}
 import com.lightbend.lagom.scaladsl.api.ServiceLocator
 import com.lightbend.lagom.scaladsl.api.ServiceLocator.NoServiceLocator
-import com.lightbend.lagom.dns
+import com.lightbend.lagom.dns.DnsServiceLocator
 import com.lightbend.lagom.scaladsl.devmode.LagomDevModeComponents
 import com.lightbend.lagom.scaladsl.server.{LagomApplication, LagomApplicationContext, LagomApplicationLoader, LagomServer}
 import com.softwaremill.macwire.wire
