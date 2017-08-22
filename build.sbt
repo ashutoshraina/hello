@@ -34,4 +34,4 @@ lazy val `lagom-impl` = (project in file("lagom-impl"))
   .settings(lagomForkedTestSettings: _*)
   .dependsOn(`lagom-api`)
 
-lagomUnmanagedServices in ThisBuild := Map("liberty" -> "http://localhost:8080")
+lagomUnmanagedServices in ThisBuild := Map("liberty" -> "http://localhost:9080")

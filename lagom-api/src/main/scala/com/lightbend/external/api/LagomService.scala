@@ -5,13 +5,13 @@ import com.lightbend.lagom.scaladsl.api.{Service, ServiceCall}
 
 trait LagomService extends Service {
 
-  def speak(id: String): ServiceCall[NotUsed, String]
+  def speak(): ServiceCall[NotUsed, String]
 
   override final def descriptor = {
     import Service._
     named("lagom")
       .withCalls(
-        pathCall("/lagom/:toEcho", speak _)
+        pathCall("/lagom", speak)
       ).withAutoAcl(true)
   }
 }
