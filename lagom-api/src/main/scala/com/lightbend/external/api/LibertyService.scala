@@ -12,7 +12,7 @@ trait LibertyService extends Service {
     import Service._
     named("liberty")
       .withCalls(
-        restCall(Method.GET, "/servlet/servlet", echo)
+        restCall(Method.GET, "/sample.servlet/servlet", echo)
       ).withAutoAcl(true)
   }
 }

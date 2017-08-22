@@ -10,7 +10,7 @@
     "template": {
       "metadata": {
         "labels": {
-          "app": "liberty"
+          "app": "libertyservice"
         }
       },
       "spec": {
