@@ -1,7 +1,6 @@
 package com.lightbend.lagom.impl
 
 import java.net.URI
-import java.util.Optional
 import javax.inject.{Inject, Named}
 
 import akka.actor.ActorSystem
@@ -10,7 +9,6 @@ import com.lightbend.dns.locator.{Settings, ServiceLocator => ServiceLocatorServ
 import com.lightbend.external.api.{LagomService, LibertyService}
 import com.lightbend.lagom.scaladsl.api
 import com.lightbend.lagom.scaladsl.api.Descriptor
-import com.lightbend.lagom.scaladsl.api.Descriptor.Call
 import com.lightbend.lagom.scaladsl.client.LagomServiceClientComponents
 import com.lightbend.lagom.scaladsl.devmode.LagomDevModeComponents
 import com.lightbend.lagom.scaladsl.server.{LagomApplication, LagomApplicationContext, LagomApplicationLoader, LagomServer}
