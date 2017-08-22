@@ -12,7 +12,7 @@ eval $(minikube docker-env)
 Building Docker images 
 
 ```
- sbt -DbuildTarget=kubernetes clean docker:publishLocal && docker build -t liberty-app liberty
+ sbt clean docker:publishLocal && docker build -t liberty-app liberty
 ```
 
 Creating Pods
