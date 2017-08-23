@@ -25,7 +25,26 @@ Listing Services
 
 ```
 minikube service list
+
+Sample Output : 
+
+$ minikube service list
+|-------------|-----------------------|--------------------------------|
+|  NAMESPACE  |         NAME          |              URL               |
+|-------------|-----------------------|--------------------------------|
+| default     | kubernetes            | No node port                   |
+| default     | lagomservice          | No node port                   |
+| default     | libertyservice        | No node port                   |
+| default     | nginx-default-backend | No node port                   |
+| default     | nginx-ingress         | http://192.168.99.105:31627    |
+|             |                       | http://192.168.99.105:30803    |
+| kube-system | kube-dns              | No node port                   |
+| kube-system | kubernetes-dashboard  | http://192.168.99.105:30000    |
+|-------------|-----------------------|--------------------------------|
+
 ```
 
-Hit  /lagom
+Hit http://192.168.99.105:31627/lagom to see how lagom can talk to a liberty app.
+
+Hit http://192.168.99.105:31627/sample.servlet/example to see how liberty can talk to lagom.
 

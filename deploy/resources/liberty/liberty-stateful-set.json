@@ -31,6 +31,10 @@
                 "value": "9080"
               },
               {
+                "name": "LAGOM_SERVICE",
+                "value": "_http-lagom-api._tcp.lagomservice.default.svc.cluster.local"
+              },
+              {
                 "name": "POD_NAME",
                 "valueFrom": {
                   "fieldRef": {

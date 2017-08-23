@@ -42,6 +42,4 @@ public class LibertyServlet extends HttpServlet {
         doGet(request, response);
     }
 
-    
-
 }
