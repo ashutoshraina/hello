@@ -44,7 +44,7 @@ $ minikube service list
 
 ```
 
-Hit http://192.168.99.105:31627/lagom to see how lagom can talk to a liberty app.
+Hit http://192.168.99.105:31627/lagom/toLiberty to see how lagom can talk to a liberty app.
 
 Hit http://192.168.99.105:31627/sample.servlet/example to see how liberty can talk to lagom.
 

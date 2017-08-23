@@ -14,7 +14,7 @@ trait LagomService extends Service {
     named("lagom")
       .withCalls(
         pathCall("/lagom?name", echo _),
-        pathCall("/lagom", speak)
+        pathCall("/lagom/toLiberty", speak)
       ).withAutoAcl(true)
   }
 }
