@@ -6,9 +6,11 @@ version in ThisBuild := "0.1"
 // the Scala version that will be used for cross-compiled libraries
 scalaVersion in ThisBuild := "2.11.8"
 
+resolvers += Resolver.bintrayRepo("hajile", "maven")
+
 val macwire = "com.softwaremill.macwire" %% "macros" % "2.2.5" % "provided"
 val scalaTest = "org.scalatest" %% "scalatest" % "3.0.1" % Test
-val serviceLocatorDNS = "com.lightbend" %% "lagom-service-locator-dns" % "1.0.2"
+val scalaDns = "com.lightbend" %% "lagom13-scala-service-locator-dns" % "2.0.0"
 
 lazy val `hello` = (project in file("."))
   .aggregate(`lagom-api`, `lagom-impl`)
@@ -21,8 +23,8 @@ lazy val `lagom-api` = (project in file("lagom-api"))
 lazy val `lagom-impl` = (project in file("lagom-impl"))
   .enablePlugins(LagomScala, JavaAppPackaging)
   .settings(
-    libraryDependencies ++= Seq(lagomScaladslClient, macwire, serviceLocatorDNS),
-    dockerRepository := Some("lagom"),
+    libraryDependencies ++= Seq(lagomScaladslClient, macwire, scalaDns),
+      dockerRepository := Some("lagom"),
     dockerUpdateLatest := true,
     dockerEntrypoint ++= """-Dplay.crypto.secret="${APPLICATION_SECRET:-none}" -Dplay.akka.actor-system="${AKKA_ACTOR_SYSTEM_NAME:-lagomservice-v1}" -Dhttp.address="$LAGOMSERVICE_BIND_IP" -Dhttp.port="$LAGOMSERVICE_BIND_PORT" -Dakka.io.dns.resolver=async-dns -Dakka.io.dns.async-dns.resolve-srv=true -Dakka.io.dns.async-dns.resolv-conf=on""".split(" ").toSeq,
     dockerCommands :=
